@@ -3,48 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A&K FAIR MART</title>
+<title>A&K FAIR MART | خرید و فروخت</title>
 <style>
-body {font-family:Arial;margin:0;background:#f4f5f7;color:#222}
-header {background:#142b45;color:white;padding:25px;text-align:center}
-header h1 {margin:0;color:#f5c542}
-nav {background:#203c59;padding:15px;text-align:center}
-nav a {color:white;margin:10px;text-decoration:none}
-.hero {text-align:center;padding:55px 15px;background:#fff}
-.hero h2 {color:#142b45}
-button {background:#e8b832;padding:12px 25px;border:0;border-radius:5px}
-.categories {padding:25px;text-align:center}
-.category {background:white;padding:20px;margin:10px;border-radius:8px}
-footer {background:#142b45;color:white;text-align:center;padding:20px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#172b45}
+header{background:#142b45;color:white;padding:22px;text-align:center}
+header h1{color:#edc45a;margin:0;font-size:30px}
+nav{background:#203c59;padding:15px;text-align:center}
+nav a{color:white;text-decoration:none;margin:10px}
+.hero{text-align:center;padding:45px 15px;background:white}
+.hero h2{font-size:27px}
+.hero p{color:#555}
+.search{padding:12px;width:85%;max-width:450px;border:1px solid #ccc;border-radius:6px}
+.btn{background:#e5b943;color:#142b45;padding:12px 22px;border:0;border-radius:6px;font-weight:bold;margin:8px}
+section{padding:25px 15px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:750px;margin:auto}
+.item{background:white;padding:22px 8px;border-radius:9px;box-shadow:0 2px 7px #ddd}
+.item span{font-size:30px}
+.item h3{font-size:16px}
+footer{background:#142b45;color:white;padding:25px;text-align:center}
+#urdu{display:none}
 </style>
 </head>
 <body>
+
 <header>
 <h1>A&K FAIR MART</h1>
 <p>Your Trusted Online Marketplace</p>
+<p>آپ کی قابلِ اعتماد آن لائن مارکیٹ</p>
 </header>
+
 <nav>
-<a href="#">Home</a>
-<a href="#categories">Categories</a>
-<a href="#contact">Contact</a>
+<a href="#">Home | ہوم</a>
+<a href="#categories">Categories | کیٹیگریز</a>
+<a href="#contact">Contact | رابطہ</a>
 </nav>
-<section class="hero">
-<h2>Buy & Sell Everything in One Place</h2>
-<p>Find properties, vehicles, electronics and much more.</p>
-<button>Explore Marketplace</button>
+
+<div class="hero">
+<h2>Buy & Sell Everything!</h2>
+<h2 dir="rtl">ہر چیز خریدیں اور فروخت کریں!</h2>
+<p>Find the best deals across Pakistan</p>
+<p dir="rtl">پاکستان بھر میں بہترین خرید و فروخت</p>
+<input class="search" placeholder="Search products... / اشیاء تلاش کریں">
+<br>
+<button class="btn" onclick="alert('Coming Soon!')">Search | تلاش کریں</button>
+<button class="btn" onclick="alert('Posting feature coming soon!')">Post Your Ad | اشتہار دیں</button>
+</div>
+
+<section id="categories">
+<h2>Explore Categories | کیٹیگریز</h2>
+<div class="grid">
+<div class="item"><span>🏠</span><h3>Property | پراپرٹی</h3></div>
+<div class="item"><span>🚗</span><h3>Vehicles | گاڑیاں</h3></div>
+<div class="item"><span>📱</span><h3>Electronics | الیکٹرانکس</h3></div>
+<div class="item"><span>🛋️</span><h3>Furniture | فرنیچر</h3></div>
+<div class="item"><span>👗</span><h3>Fashion | فیشن</h3></div>
+<div class="item"><span>🛒</span><h3>Other Items | دیگر اشیاء</h3></div>
+</div>
 </section>
-<section class="categories" id="categories">
-<h2>Explore Categories</h2>
-<div class="category">🏠 Properties</div>
-<div class="category">🚗 Vehicles</div>
-<div class="category">📱 Electronics</div>
-<div class="category">🛋️ Furniture</div>
-<div class="category">🛍️ Other Products</div>
-</section>
+
 <footer id="contact">
 <h3>A&K FAIR MART</h3>
 <p>By Ammar & Khalid</p>
-<p>Contact: 030943334302</p>
+<p>Buy Smart. Sell Easy.</p>
+<p>سمجھداری سے خریدیں، آسانی سے فروخت کریں۔</p>
 </footer>
+
 </body>
 </html>
