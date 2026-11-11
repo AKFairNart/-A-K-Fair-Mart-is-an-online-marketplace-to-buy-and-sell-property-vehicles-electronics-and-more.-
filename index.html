@@ -138,10 +138,9 @@ async function loadCategories(){
     card.className="item";
     card.textContent=name;
     card.onclick=()=>{
-      document.getElementById("searchBox").value=name;
-      showAds();
-      location.hash="listings";
-    };
+  filterCategory(cat.id);
+  location.hash="listings";
+}; 
     grid.appendChild(card);
     const option=document.createElement("option");
     option.value=cat.id;
@@ -249,7 +248,13 @@ async function loadAds(){
   allAds=data||[];
   renderAds(allAds);
 }
-
+function filterCategory(categoryId){
+  const filtered = allAds.filter(ad =>
+    String(ad.catrory_id) === String(categoryId)
+  );
+  renderAds(filtered);
+  document.getElementById("listings").scrollIntoView();
+} 
 function renderAds(ads){
   const grid=document.getElementById("adsGrid");
   grid.innerHTML="";
