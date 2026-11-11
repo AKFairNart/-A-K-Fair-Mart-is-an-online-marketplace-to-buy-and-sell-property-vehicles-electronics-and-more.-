@@ -68,6 +68,44 @@ footer{background:#142b45;color:white;padding:25px;text-align:center}
 <p>Buy Smart. Sell Easy.</p>
 <p>سمجھداری سے خریدیں، آسانی سے فروخت کریں۔</p>
 </footer>
+<section id="postAd" style="display:none;background:white;max-width:550px;margin:25px auto;border-radius:10px;text-align:left">
+<h2>Post Your Ad | اپنا اشتہار دیں</h2>
 
+<form id="listingForm">
+<label>Ad Title | اشتہار کا عنوان</label>
+<input name="listing_title" required style="width:100%;padding:12px;margin:8px 0">
+
+<label>Category | کیٹیگری</label>
+<select name="category_id" required style="width:100%;padding:12px;margin:8px 0">
+<option value="">Select Category</option>
+<option value="1">Property</option>
+<option value="2">Vehicles</option>
+<option value="3">Electronics</option>
+<option value="4">Mobile phones</option>
+<option value="5">Furniture</option>
+<option value="6">Home Appliances</option>
+<option value="7">Fashion</option>
+<option value="8">Jobs</option>
+<option value="9">Services</option>
+<option value="10">Other</option>
+</select>
+
+<label>Price | قیمت</label>
+<input name="price" type="number" min="0" required style="width:100%;padding:12px;margin:8px 0">
+
+<label>Location | مقام</label>
+<input name="location" required style="width:100%;padding:12px;margin:8px 0">
+
+<label>Image URL | تصویر کا لنک</label>
+<input name="image_url" type="url" style="width:100%;padding:12px;margin:8px 0">
+
+<label>Description | تفصیل</label>
+<textarea name="description" required style="width:100%;padding:12px;margin:8px 0"></textarea>
+
+<button class="btn" type="submit">Submit Ad | اشتہار جمع کریں</button>
+<button class="btn" type="button" onclick="document.getElementById('postAd').style.display='none'">Close | بند کریں</button>
+</form>
+<p id="formMessage"></p>
+</section>
 </body>
 </html>
