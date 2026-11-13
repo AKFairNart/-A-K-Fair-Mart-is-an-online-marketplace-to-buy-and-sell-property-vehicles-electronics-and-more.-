@@ -3,46 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#142b45">
 <title>A&K FAIR MART | خرید و فروخت</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{--navy:#142b45;--navy2:#203f60;--gold:#efc65c;--teal:#159b91;--cream:#fff9ed;--ink:#172b45;--muted:#64748b;--white:#fff;--line:#e8edf2;--shadow:0 12px 35px rgba(20,43,69,.11)}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#172b45}
-header{background:#142b45;color:white;padding:22px;text-align:center}
-header h1{color:#edc45a;margin:0;font-size:30px}
-nav{background:#203c59;padding:14px;text-align:center}
-nav a{color:white;text-decoration:none;margin:8px;display:inline-block}
-.hero{text-align:center;padding:35px 15px;background:white}
-section{padding:25px 15px;text-align:center}
-.btn{background:#e5b943;color:#142b45;padding:12px 20px;border:0;border-radius:6px;font-weight:bold;margin:7px;cursor:pointer}
-.btn:disabled{opacity:.6;cursor:wait}
-input,textarea,select{width:100%;max-width:500px;padding:12px;margin:7px auto;border:1px solid #ccc;border-radius:6px;display:block;font-size:15px}
-.search{max-width:500px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;max-width:850px;margin:auto}
-.item,.formbox,.ad{background:white;padding:18px;border-radius:9px;box-shadow:0 2px 7px #ddd}
-.item{cursor:pointer}
-.item:hover{background:#fff8e5}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"DM Sans",Arial,sans-serif;background:linear-gradient(135deg,#fff9ed 0%,#edf8f7 48%,#f2f4ff 100%);min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.topbar{background:var(--navy);color:#dce8f4;text-align:center;padding:8px 12px;font-size:12px;letter-spacing:.3px}
+header{position:relative;overflow:hidden;background:radial-gradient(circle at 12% 10%,rgba(239,198,92,.22),transparent 30%),linear-gradient(120deg,#10243a,#214b68 65%,#147f7b);color:white;padding:24px 16px 30px}
+header:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-95px;top:-150px;box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 58px rgba(255,255,255,.025)}
+.brand{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:center;gap:14px;position:relative;z-index:1}
+.logo{width:66px;height:66px;flex:none;border-radius:19px;background:linear-gradient(145deg,#ffe99b,#e4ad32);display:grid;place-items:center;color:#142b45;box-shadow:0 7px 22px #07182766;border:2px solid #fff4c7;transform:rotate(-3deg)}
+.logo span{font-weight:900;font-size:21px;letter-spacing:-2px;transform:rotate(3deg)}
+.brandname{font-family:"Playfair Display",Georgia,serif;font-size:clamp(27px,5vw,43px);font-weight:800;letter-spacing:1px;color:#ffdc7c;line-height:1.05}
+.tagline{font-size:11px;letter-spacing:2.4px;color:#e7f0f4;margin-top:7px}
+.brandurdu{font-family:"Noto Nastaliq Urdu",serif;font-size:17px;color:#fff;text-align:center;margin:10px 0 0}
+nav{position:sticky;top:0;z-index:10;background:rgba(20,43,69,.96);backdrop-filter:blur(10px);display:flex;justify-content:center;flex-wrap:wrap;padding:8px 10px;box-shadow:0 5px 18px #10243a22}
+nav a{color:white;text-decoration:none;padding:10px 13px;border-radius:30px;font-size:13px;font-weight:700}
+nav a:hover{background:#ffffff20;color:var(--gold)}
+.hero{max-width:1100px;margin:28px auto 20px;padding:35px 22px;text-align:center;border-radius:26px;background:linear-gradient(115deg,#ffffffed,#ffffffc9);box-shadow:var(--shadow);border:1px solid #fff}
+.hero h2{font-size:clamp(25px,4vw,39px);margin:0 0 8px;color:var(--navy);font-weight:800}
+.hero p{color:var(--muted);margin:7px 0 18px}
+.urdu{font-family:"Noto Nastaliq Urdu",serif;direction:rtl}
+.searchrow{display:flex;gap:9px;max-width:680px;margin:18px auto 10px}
+.searchrow input{flex:1;min-width:0}
+input,textarea,select{width:100%;padding:13px 14px;margin:7px 0;border:1px solid #dce4ec;border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:.2s}
+input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px #159b911b}
+.btn{border:0;border-radius:12px;padding:12px 19px;background:linear-gradient(135deg,#f5d77d,#e7b63e);color:#182e46;font-weight:800;box-shadow:0 5px 13px #b88b2d26;transition:transform .18s,filter .18s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.btn.dark{background:linear-gradient(135deg,#203f60,#142b45);color:white}
+.btn.teal{background:linear-gradient(135deg,#20b6a8,#12877f);color:white}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+#userStatus{font-size:13px;margin:15px 0 0;color:#476174}
+section{padding:24px 16px;text-align:center;scroll-margin-top:75px}
+.section-head{margin:0 auto 19px;max-width:1000px}
+.section-head h2{font-size:25px;color:var(--navy);margin:0 0 5px}
+.section-head p{margin:0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:13px;max-width:1000px;margin:auto}
+.item{cursor:pointer;background:linear-gradient(145deg,#fff,#f4fbfa);padding:20px 12px;border-radius:17px;border:1px solid #fff;box-shadow:0 7px 20px #18365310;font-weight:800;color:var(--navy);transition:.2s}
+.item:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#e8d28c}
+.item .cat-icon{font-size:25px;display:block;margin-bottom:8px}
+.formbox{max-width:570px;margin:12px auto;padding:24px;background:#fff;border-radius:22px;box-shadow:var(--shadow);border:1px solid #fff;text-align:center}
+.formbox h2{margin:0 0 8px;color:var(--navy)}
+.formbox .hint{font-size:13px;color:var(--muted)}
 #postAd,#account{display:none}
-.formbox{max-width:550px;margin:15px auto;padding:20px}
-.ads{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;max-width:1000px;margin:auto;text-align:left}
-.ad img{width:100%;height:170px;object-fit:cover;border-radius:6px}
-.ad h3{margin-bottom:6px}
-.price{color:#147344;font-weight:bold;font-size:19px}
-.small{color:#666;font-size:13px}
-footer{background:#142b45;color:white;padding:25px;text-align:center}
-.notice{margin:12px auto;max-width:500px;font-weight:bold;overflow-wrap:anywhere}
+.notice{margin:12px auto;max-width:500px;font-weight:700;font-size:13px;overflow-wrap:anywhere}
+.ads{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:17px;max-width:1100px;margin:auto;text-align:left}
+.ad{background:white;border-radius:18px;padding:12px;box-shadow:0 8px 24px #18365312;border:1px solid #fff;overflow:hidden;transition:.2s}
+.ad:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.ad img{width:100%;height:185px;object-fit:cover;border-radius:12px;background:#eef2f5}
+.ad h3{margin:12px 3px 5px;font-size:17px;color:var(--navy)}
+.ad p{margin:6px 3px;color:#536579;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.price{color:#12816f!important;font-weight:900;font-size:20px!important}
+.small{color:#718096;font-size:12px}
+.empty{grid-column:1/-1;background:#fff;padding:25px;border-radius:15px;color:var(--muted)}
+footer{margin-top:25px;background:linear-gradient(120deg,#10243a,#214b68);color:#eaf1f6;padding:32px 15px;text-align:center}
+footer h3{font-family:"Playfair Display",Georgia,serif;color:#f5d77d;font-size:25px;margin:0 0 7px}
+footer p{margin:6px;font-size:13px}
+.footerline{height:1px;background:#ffffff2b;max-width:500px;margin:18px auto}
+@media(max-width:600px){header{padding:20px 12px 25px}.logo{width:55px;height:55px;border-radius:16px}.logo span{font-size:18px}.tagline{letter-spacing:1.5px;font-size:9px}.hero{margin:15px 10px;padding:27px 14px}.searchrow{flex-direction:column}.searchrow .btn{width:100%}nav a{padding:9px 10px;font-size:12px}section{padding:20px 12px}.formbox{padding:19px 14px}.ads{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}.ad{padding:9px}.ad img{height:140px}.ad h3{font-size:15px}.price{font-size:17px!important}}
 </style>
 </head>
-
 <body>
+<div class="topbar">A BETTER WAY TO BUY & SELL • پاکستان بھر میں خرید و فروخت</div>
 <header>
-  <h1>A&K FAIR MART</h1>
-  <p>Your Trusted Online Marketplace</p>
-  <p dir="rtl">آپ کی قابلِ اعتماد آن لائن مارکیٹ</p>
+  <div class="brand">
+    <div class="logo"><span>A&amp;K</span></div>
+    <div>
+      <div class="brandname">FAIR MART</div>
+      <div class="tagline">BUY SMART. SELL EASY.</div>
+    </div>
+  </div>
+  <p class="brandurdu">آپ کی قابلِ اعتماد آن لائن مارکیٹ</p>
 </header>
-
 <nav>
   <a href="#">Home | ہوم</a>
   <a href="#categories">Categories | کیٹیگریز</a>
@@ -50,30 +91,40 @@ footer{background:#142b45;color:white;padding:25px;text-align:center}
   <a href="#account" onclick="showAccount()">Account | اکاؤنٹ</a>
 </nav>
 
+<main>
 <div class="hero">
-  <h2>Buy &amp; Sell Everything!</h2>
-  <h2 dir="rtl">ہر چیز خریدیں اور فروخت کریں!</h2>
-  <p>Find the best deals across Pakistan</p>
-  <input id="searchBox" class="search" placeholder="Search products... / اشیاء تلاش کریں">
-  <button class="btn" onclick="showAds()">Search | تلاش کریں</button>
-  <button class="btn" onclick="openPost()">Post Your Ad | اشتہار دیں</button>
+  <h2>Find It. Love It. Buy It.</h2>
+  <h2 class="urdu" style="font-size:22px">ہر چیز خریدیں اور فروخت کریں</h2>
+  <p>Discover great deals and give your items a new home.</p>
+  <div class="searchrow">
+    <input id="searchBox" placeholder="Search products, cars, property... / تلاش کریں">
+    <button class="btn dark" onclick="showAds()">Search | تلاش کریں</button>
+  </div>
+  <div class="hero-actions">
+    <button class="btn" onclick="openPost()">＋ Post Your Ad | اشتہار دیں</button>
+    <button class="btn teal" onclick="showAccount()">Login / Sign Up</button>
+  </div>
   <p id="userStatus">Checking account...</p>
 </div>
 
 <section id="account">
   <div class="formbox">
-    <h2>Login / Sign Up</h2>
+    <h2>Welcome to A&amp;K Fair Mart</h2>
+    <p class="hint">Login or create your account using your email address.</p>
     <input id="email" type="email" placeholder="Email address">
-    <input id="password" type="password" placeholder="Password">
-    <button class="btn" onclick="signUp()">Create Account</button>
+    <input id="password" type="password" placeholder="Password (at least 6 characters)">
+    <button class="btn dark" onclick="signUp()">Create Account</button>
     <button class="btn" onclick="signIn()">Login</button>
-    <button class="btn" onclick="signOut()">Logout</button>
+    <button class="btn teal" onclick="signOut()">Logout</button>
     <div id="accountMessage" class="notice"></div>
   </div>
 </section>
 
 <section id="categories">
-  <h2>Explore Categories | کیٹیگریز</h2>
+  <div class="section-head">
+    <h2>Explore Categories</h2>
+    <p class="urdu">اپنی پسند کی کیٹیگری منتخب کریں</p>
+  </div>
   <div class="grid" id="categoryGrid">
     <div class="item">Loading categories...</div>
   </div>
@@ -81,413 +132,235 @@ footer{background:#142b45;color:white;padding:25px;text-align:center}
 
 <section id="postAd">
   <div class="formbox">
-    <h2>Post Your Ad | اشتہار دیں</h2>
-    <p class="small">Please login before posting an advertisement.</p>
+    <h2>Post Your Advertisement</h2>
+    <p class="hint">Share the details of the item you want to sell.</p>
     <input id="adTitle" placeholder="Ad title / اشتہار کا عنوان">
-    <select id="adCategory">
-      <option value="">Select category</option>
-    </select>
+    <select id="adCategory"><option value="">Select category</option></select>
     <textarea id="adDescription" rows="4" placeholder="Description / تفصیل"></textarea>
     <input id="adPrice" type="number" min="0" placeholder="Price in PKR">
     <input id="adLocation" placeholder="City / Location">
+    <label class="small" for="adImage">Upload product photo (optional)</label>
     <input id="adImage" type="file" accept="image/*">
-    <button class="btn" id="submitAdButton" onclick="postAd()">Submit Advertisement</button>
+    <button class="btn dark" id="submitAdButton" onclick="postAd()">Submit Advertisement</button>
     <div id="postMessage" class="notice"></div>
   </div>
 </section>
 
 <section id="listings">
-  <h2>Latest Advertisements | تازہ اشتہارات</h2>
-  <div class="ads" id="adsGrid">
-    <p>Loading advertisements...</p>
+  <div class="section-head">
+    <h2>Latest Advertisements</h2>
+    <p class="urdu">تازہ ترین اشتہارات</p>
   </div>
+  <div class="ads" id="adsGrid"><p class="empty">Loading advertisements...</p></div>
 </section>
+</main>
 
 <footer>
   <h3>A&amp;K FAIR MART</h3>
   <p>By Ammar &amp; Khalid</p>
   <p>Buy Smart. Sell Easy.</p>
-  <p dir="rtl">سمجھداری سے خریدیں، آسانی سے فروخت کریں۔</p>
+  <p class="urdu">سمجھداری سے خریدیں، آسانی سے فروخت کریں۔</p>
+  <div class="footerline"></div>
+  <p>© <span id="year"></span> A&amp;K FAIR MART. All rights reserved.</p>
 </footer>
 
 <script>
 "use strict";
-
 const SUPABASE_URL = "https://lquonluzxuivvzrdiipc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_gwBu5OE9UQe351h24aM75Q_C-W6L1ch";
-
+const SUPABASE_KEY = "sb_publishable_gwBu5OE9Ue351h24aM75Q_C-W6L1ch";
 let db = null;
 let currentUser = null;
 let allAds = [];
 let allCategories = [];
 
-function message(id, text, color = "#172b45") {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = text;
-  el.style.color = color;
+function message(id, text, color="#172b45"){
+  const el=document.getElementById(id);
+  if(el){el.textContent=text;el.style.color=color;}
 }
-
-function showError(id, error) {
-  message(id, error && error.message ? error.message : String(error), "red");
+function showError(id,error){
+  console.error(error);
+  message(id,error && error.message ? error.message : String(error),"#b42318");
 }
-
-function showAccount() {
-  document.getElementById("account").style.display = "block";
+function showAccount(){
+  document.getElementById("account").style.display="block";
+  document.getElementById("account").scrollIntoView({behavior:"smooth"});
 }
-
-function updateUser() {
-  document.getElementById("userStatus").textContent =
-    currentUser ? "Logged in: " + currentUser.email : "You are not logged in.";
+function updateUser(){
+  const status=document.getElementById("userStatus");
+  status.textContent=currentUser ? "Logged in: "+currentUser.email : "You are browsing as a guest. Login to post an ad.";
 }
-
-async function loadCategories() {
-  const grid = document.getElementById("categoryGrid");
-  const select = document.getElementById("adCategory");
-  grid.textContent = "Loading categories...";
-
-  try {
-    const { data, error } = await db
-      .from("categories")
-      .select("*")
-      .order("id", { ascending: true });
-
-    if (error) throw error;
-
-    allCategories = data || [];
-    grid.innerHTML = "";
-    select.innerHTML = '<option value="">Select category</option>';
-
-    if (allCategories.length === 0) {
-      grid.textContent = "No categories found.";
-      return;
-    }
-
-    allCategories.forEach((cat) => {
-      const name = cat.name || "Category";
-
-      const card = document.createElement("div");
-      card.className = "item";
-      card.textContent = name;
-      card.onclick = () => {
-        filterCategory(cat.id);
-        location.hash = "listings";
-      };
-      grid.appendChild(card);
-
-      const option = document.createElement("option");
-      option.value = cat.id;
-      option.textContent = name;
-      select.appendChild(option);
-    });
-  } catch (error) {
-    grid.textContent = "Categories could not be loaded: " +
-      (error.message || String(error));
-  }
+async function loadCategories(){
+  const grid=document.getElementById("categoryGrid");
+  const select=document.getElementById("adCategory");
+  const {data,error}=await db.from("categories").select("*").order("id",{ascending:true});
+  if(error){grid.innerHTML='<div class="empty">Categories could not be loaded: '+escapeHtml(error.message)+'</div>';return;}
+  allCategories=data||[];
+  grid.innerHTML="";
+  select.innerHTML='<option value="">Select category</option>';
+  if(!allCategories.length){grid.innerHTML='<div class="empty">No categories found yet.</div>';return;}
+  allCategories.forEach((cat,index)=>{
+    const name=cat.name||cat.category_name||("Category "+(index+1));
+    const item=document.createElement("div");
+    item.className="item";
+    item.innerHTML='<span class="cat-icon">'+["🛍️","🏠","🚗","📱","👗","🪑","⚽","🔧"][index%8]+'</span>'+escapeHtml(name);
+    item.onclick=()=>filterCategory(cat.id);
+    grid.appendChild(item);
+    const option=document.createElement("option");
+    option.value=cat.id;option.textContent=name;select.appendChild(option);
+  });
 }
-
-async function signUp() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!email || password.length < 6) {
-    message("accountMessage",
-      "Enter a valid email and a password of at least 6 characters.", "red");
-    return;
-  }
-
-  try {
-    const { data, error } = await db.auth.signUp({ email, password });
-    if (error) throw error;
-
-    message("accountMessage",
-      "Account created. Check your email if confirmation is required.", "green");
-
-    if (data.session && data.user) {
-      currentUser = data.user;
-      updateUser();
-    }
-  } catch (error) {
-    showError("accountMessage", error);
-  }
+function escapeHtml(value){
+  return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 }
-
-async function signIn() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!email || !password) {
-    message("accountMessage", "Enter your email and password.", "red");
-    return;
-  }
-
-  try {
-    const { data, error } = await db.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-
-    currentUser = data.user;
-    updateUser();
-    message("accountMessage", "Login successful.", "green");
-  } catch (error) {
-    showError("accountMessage", error);
-  }
+async function signUp(){
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  if(!email||password.length<6){message("accountMessage","Enter a valid email and password of at least 6 characters.","#b42318");return;}
+  const {data,error}=await db.auth.signUp({email,password});
+  if(error){showError("accountMessage",error);return;}
+  if(data.session){currentUser=data.session.user;updateUser();}
+  message("accountMessage","Account request submitted. If email confirmation is enabled, check your inbox.","#12816f");
 }
-
-async function signOut() {
-  try {
-    const { error } = await db.auth.signOut();
-    if (error) throw error;
-
-    currentUser = null;
-    updateUser();
-    message("accountMessage", "You are logged out.", "green");
-  } catch (error) {
-    showError("accountMessage", error);
-  }
+async function signIn(){
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  if(!email||!password){message("accountMessage","Enter your email and password.","#b42318");return;}
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error){showError("accountMessage",error);return;}
+  currentUser=data.user;updateUser();
+  message("accountMessage","Login successful.","#12816f");
 }
-
-/*
-  Seller mapping:
-  The supplied sellers table has id, created_at, seller_name and mobile.
-  This code uses the logged-in email as seller_name to find/create a seller.
-  Confirm this matches the intended seller workflow before public launch.
-*/
-async function getSellerId() {
-  if (!currentUser) throw new Error("Please login first.");
-
-  const sellerName = currentUser.email;
-
-  const { data: existing, error: findError } = await db
-    .from("sellers")
-    .select("id")
-    .eq("seller_name", sellerName)
-    .limit(1)
-    .maybeSingle();
-
-  if (findError) throw findError;
-  if (existing) return existing.id;
-
-  const { data: newSeller, error: insertError } = await db
-    .from("sellers")
-    .insert({
-      created_at: new Date().toISOString(),
-      seller_name: sellerName,
-      mobile: ""
-    })
-    .select("id")
-    .single();
-
-  if (insertError) throw insertError;
+async function signOut(){
+  const {error}=await db.auth.signOut();
+  if(error){showError("accountMessage",error);return;}
+  currentUser=null;updateUser();
+  message("accountMessage","You have logged out.","#12816f");
+}
+async function getSellerId(){
+  if(!currentUser)throw new Error("Please login first.");
+  const sellerName=currentUser.email;
+  const {data:existing,error:findError}=await db.from("sellers").select("id").eq("seller_name",sellerName).limit(1).maybeSingle();
+  if(findError)throw findError;
+  if(existing)return existing.id;
+  const {data:newSeller,error:insertError}=await db.from("sellers").insert({
+    created_at:new Date().toISOString(),
+    seller_name:sellerName,
+    mobile:"",
+    seller_address:""
+  }).select("id").single();
+  if(insertError)throw insertError;
   return newSeller.id;
 }
-
-function openPost() {
-  if (!currentUser) {
-    document.getElementById("account").style.display = "block";
-    location.hash = "account";
-    message("accountMessage", "Please login or create an account before posting.", "red");
-    return;
-  }
-
-  document.getElementById("postAd").style.display = "block";
-  location.hash = "postAd";
+function openPost(){
+  if(!currentUser){showAccount();message("accountMessage","Please login before posting an advertisement.","#b42318");return;}
+  const section=document.getElementById("postAd");
+  section.style.display="block";
+  section.scrollIntoView({behavior:"smooth"});
 }
-
-async function postAd() {
-  if (!currentUser) {
-    message("postMessage", "Please login first.", "red");
-    return;
+async function postAd(){
+  const button=document.getElementById("submitAdButton");
+  if(!currentUser){message("postMessage","Please login first.","#b42318");showAccount();return;}
+  const title=document.getElementById("adTitle").value.trim();
+  const category=document.getElementById("adCategory").value;
+  const description=document.getElementById("adDescription").value.trim();
+  const price=document.getElementById("adPrice").value;
+  const locationText=document.getElementById("adLocation").value.trim();
+  const file=document.getElementById("adImage").files[0];
+  if(!title||!category||!description||!price||!locationText){
+    message("postMessage","Please fill in title, category, description, price and location.","#b42318");return;
   }
-
-  const title = document.getElementById("adTitle").value.trim();
-  const category = document.getElementById("adCategory").value;
-  const description = document.getElementById("adDescription").value.trim();
-  const priceText = document.getElementById("adPrice").value;
-  const locationText = document.getElementById("adLocation").value.trim();
-  const imageFile = document.getElementById("adImage").files[0];
-  const button = document.getElementById("submitAdButton");
-
-  if (!title || !category || !description || priceText === "" || !locationText) {
-    message("postMessage", "Please fill all required fields.", "red");
-    return;
-  }
-
-  const price = Number(priceText);
-  if (!Number.isFinite(price) || price < 0) {
-    message("postMessage", "Please enter a valid price.", "red");
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Please wait...";
-
-  try {
-    const sellerId = await getSellerId();
-    let imageUrl = null;
-
-    if (imageFile) {
-      const fileExt = (imageFile.name.split(".").pop() || "jpg").toLowerCase();
-      const fileName = currentUser.id + "/" + Date.now() + "." + fileExt;
-
-      const { error: uploadError } = await db.storage
-        .from("listing-images")
-        .upload(fileName, imageFile);
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicData } = db.storage
-        .from("listing-images")
-        .getPublicUrl(fileName);
-
-      imageUrl = publicData.publicUrl;
+  button.disabled=true;button.textContent="Submitting...";
+  try{
+    const sellerId=await getSellerId();
+    let imageUrl=null;
+    if(file){
+      const ext=(file.name.split(".").pop()||"jpg").toLowerCase();
+      const filePath=currentUser.id+"/"+Date.now()+"."+ext;
+      const {error:uploadError}=await db.storage.from("listing-images").upload(filePath,file,{upsert:false,contentType:file.type});
+      if(uploadError)throw new Error("Image upload failed: "+uploadError.message+" (Check that the listing-images storage bucket exists and allows uploads.)");
+      const {data:publicData}=db.storage.from("listing-images").getPublicUrl(filePath);
+      imageUrl=publicData.publicUrl;
     }
-
-    const newAd = {
-      listing_tittle: title,
-      caterory_id: Number(category),
-      seller_id: sellerId,
-      description: description,
-      price: price,
-      locations: locationText,
-      image_url: imageUrl,
-      status: "active"
+    const newAd={
+      listing_tittle:title,
+      caterory_id:Number(category),
+      seller_id:sellerId,
+      description:description,
+      price:Number(price),
+      locations:locationText,
+      image_url:imageUrl,
+      status:"active"
     };
-
-    const { error } = await db.from("listing").insert(newAd);
-    if (error) throw error;
-
-    message("postMessage", "Your advertisement has been posted successfully!", "green");
-
-    document.getElementById("adTitle").value = "";
-    document.getElementById("adDescription").value = "";
-    document.getElementById("adPrice").value = "";
-    document.getElementById("adLocation").value = "";
-    document.getElementById("adImage").value = "";
-    document.getElementById("adCategory").value = "";
-
+    const {error}=await db.from("listing").insert(newAd);
+    if(error)throw error;
+    message("postMessage","Your advertisement has been posted successfully!","#12816f");
+    ["adTitle","adDescription","adPrice","adLocation","adImage"].forEach(id=>document.getElementById(id).value="");
+    document.getElementById("adCategory").value="";
     await loadAds();
-    location.hash = "listings";
-  } catch (error) {
-    showError("postMessage", error);
-  } finally {
-    button.disabled = false;
-    button.textContent = "Submit Advertisement";
-  }
+  }catch(error){showError("postMessage",error);}
+  finally{button.disabled=false;button.textContent="Submit Advertisement";}
 }
-
-async function loadAds() {
-  const grid = document.getElementById("adsGrid");
-  grid.textContent = "Loading advertisements...";
-
-  try {
-    const { data, error } = await db
-      .from("listing")
-      .select("*")
-      .eq("status", "active")
-      .order("created_at", { ascending: false });
-
-    if (error) throw error;
-
-    allAds = data || [];
-    renderAds(allAds);
-  } catch (error) {
-    grid.textContent = "Advertisements could not be loaded: " +
-      (error.message || String(error));
-  }
+async function loadAds(){
+  const grid=document.getElementById("adsGrid");
+  const {data,error}=await db.from("listing").select("*").eq("status","active").order("created_at",{ascending:false});
+  if(error){grid.innerHTML='<div class="empty">Advertisements could not be loaded: '+escapeHtml(error.message)+'</div>';return;}
+  allAds=data||[];
+  renderAds(allAds);
 }
-
-function filterCategory(categoryId) {
-  const filtered = allAds.filter((ad) =>
-    String(ad.caterory_id) === String(categoryId)
-  );
-  renderAds(filtered);
-  document.getElementById("listings").scrollIntoView({ behavior: "smooth" });
-}
-
-function renderAds(ads) {
-  const grid = document.getElementById("adsGrid");
-  grid.innerHTML = "";
-
-  if (!ads.length) {
-    grid.textContent = "No advertisements found yet.";
-    return;
-  }
-
-  ads.forEach((ad) => {
-    const card = document.createElement("div");
-    card.className = "ad";
-
-    if (ad.image_url) {
-      const img = document.createElement("img");
-      img.src = ad.image_url;
-      img.alt = ad.listing_tittle || "Advertisement";
-      img.onerror = () => { img.style.display = "none"; };
+function renderAds(ads){
+  const grid=document.getElementById("adsGrid");
+  grid.innerHTML="";
+  if(!ads.length){grid.innerHTML='<div class="empty">No advertisements found. Be the first to post one!</div>';return;}
+  ads.forEach(ad=>{
+    const card=document.createElement("article");
+    card.className="ad";
+    if(ad.image_url){
+      const img=document.createElement("img");
+      img.src=ad.image_url;img.alt=ad.listing_tittle||"Advertisement";img.loading="lazy";
       card.appendChild(img);
+    }else{
+      const placeholder=document.createElement("div");
+      placeholder.style.cssText="height:150px;border-radius:12px;background:linear-gradient(135deg,#e9f3f2,#fff3d6);display:grid;place-items:center;font-size:42px";
+      placeholder.textContent="🛍️";card.appendChild(placeholder);
     }
-
-    const title = document.createElement("h3");
-    title.textContent = ad.listing_tittle || "Advertisement";
-    card.appendChild(title);
-
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = ad.price == null ? "Contact for price" : "Rs. " + ad.price;
-    card.appendChild(price);
-
-    const desc = document.createElement("p");
-    desc.textContent = ad.description || "";
-    card.appendChild(desc);
-
-    const place = document.createElement("p");
-    place.className = "small";
-    place.textContent = "Location: " + (ad.locations || "Not specified");
-    card.appendChild(place);
-
+    const title=document.createElement("h3");
+    title.textContent=ad.listing_tittle||"Advertisement";card.appendChild(title);
+    const price=document.createElement("p");
+    price.className="price";price.textContent=ad.price!=null?"Rs. "+Number(ad.price).toLocaleString("en-PK"):"Contact for price";card.appendChild(price);
+    const desc=document.createElement("p");
+    desc.textContent=ad.description||"";card.appendChild(desc);
+    const loc=document.createElement("p");
+    loc.className="small";loc.textContent="📍 "+(ad.locations||"Location not specified");card.appendChild(loc);
     grid.appendChild(card);
   });
 }
-
-function showAds() {
-  const term = document.getElementById("searchBox").value.toLowerCase().trim();
-
-  const filtered = allAds.filter((ad) =>
-    (ad.listing_tittle || "").toLowerCase().includes(term) ||
-    (ad.description || "").toLowerCase().includes(term) ||
-    (ad.locations || "").toLowerCase().includes(term)
-  );
-
+function filterCategory(categoryId){
+  const filtered=allAds.filter(ad=>String(ad.caterory_id)===String(categoryId));
   renderAds(filtered);
-  location.hash = "listings";
+  document.getElementById("listings").scrollIntoView({behavior:"smooth"});
 }
-
-async function start() {
-  if (!window.supabase || !window.supabase.createClient) {
-    document.getElementById("categoryGrid").textContent =
-      "Supabase library could not be loaded. Check your internet connection.";
-    document.getElementById("adsGrid").textContent =
-      "Supabase library could not be loaded.";
-    message("userStatus", "Supabase library could not be loaded.", "red");
-    return;
-  }
-
-  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  try {
-    const { data, error } = await db.auth.getSession();
-    if (error) throw error;
-    currentUser = data.session ? data.session.user : null;
-    updateUser();
-  } catch (error) {
-    message("userStatus", "Account connection error: " +
-      (error.message || String(error)), "red");
-  }
-
-  await Promise.all([loadCategories(), loadAds()]);
+function showAds(){
+  const term=document.getElementById("searchBox").value.toLowerCase().trim();
+  const filtered=allAds.filter(ad=>
+    (ad.listing_tittle||"").toLowerCase().includes(term)||
+    (ad.description||"").toLowerCase().includes(term)||
+    (ad.locations||"").toLowerCase().includes(term)
+  );
+  renderAds(filtered);
+  document.getElementById("listings").scrollIntoView({behavior:"smooth"});
 }
-
+async function start(){
+  document.getElementById("year").textContent=new Date().getFullYear();
+  if(!window.supabase){message("userStatus","Supabase library did not load. Check your internet connection.","#b42318");return;}
+  db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  const {data,error}=await db.auth.getSession();
+  if(error)console.error(error);
+  currentUser=data&&data.session?data.session.user:null;
+  updateUser();
+  db.auth.onAuthStateChange((_event,session)=>{currentUser=session?session.user:null;updateUser();});
+  await Promise.all([loadCategories(),loadAds()]);
+}
 start();
 </script>
 </body>
-</html>
-
-
+</html> 
