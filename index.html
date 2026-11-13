@@ -205,13 +205,21 @@ async function postAd(){
   const description=document.getElementById("adDescription").value.trim();
   const price=document.getElementById("adPrice").value;
   const locationText=document.getElementById("adLocation").value.trim();
-  const imageUrl=document.getElementById("adImage").value.trim();
-
+const imageFile=document.getElementById("adImage").files[0]; 
   if(!title||!category||!description||!price||!locationText){
     message("postMessage","Please fill all required fields.","red");
     return;
   }
-
+ const newAd={
+    listing_tittle:title,
+    caterory_id:Number(category),
+    description:description,
+    price:Number(price),
+    locations:locationText,
+    image_url:imageUrl,
+   status:"active",
+    user_id:currentUser.id
+  };
   const newAd={
     listing_tittle:title,
     caterory_id:Number(category),
