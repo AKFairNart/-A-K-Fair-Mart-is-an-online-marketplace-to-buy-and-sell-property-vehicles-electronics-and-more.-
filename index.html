@@ -249,7 +249,7 @@ async function loadAds(){
 }
 function filterCategory(categoryId){
   const filtered = allAds.filter(ad =>
-    String(ad.catrory_id) === String(categoryId)
+    String(ad.caterory_id) === String(categoryId)
   );
   renderAds(filtered);
   document.getElementById("listings").scrollIntoView();
@@ -264,12 +264,12 @@ function renderAds(ads){
     if(ad.image_url){
       const img=document.createElement("img");
       img.src=ad.image_url;
-      img.alt=ad.listing_title||"Advertisement";
+      mg.alt=ad.listing_tittle||"Advertisement"
       img.onerror=()=>img.style.display="none";
       card.appendChild(img);
     }
     const title=document.createElement("h3");
-    title.textContent=ad.listing_title||"Advertisement";
+    title.textContent=ad.listing_tittle||"Advertisement";
     card.appendChild(title);
     const price=document.createElement("p");
     price.className="price";
@@ -289,7 +289,7 @@ function renderAds(ads){
 function showAds(){
   const term=document.getElementById("searchBox").value.toLowerCase().trim();
   const filtered=allAds.filter(ad=>
-    (ad.listing_title||"").toLowerCase().includes(term)||
+   (ad.listing_tittle||"").toLowerCase().includes(term)||
     (ad.description||"").toLowerCase().includes(term)||
     (ad.locations||"").toLowerCase().includes(term)
   );
