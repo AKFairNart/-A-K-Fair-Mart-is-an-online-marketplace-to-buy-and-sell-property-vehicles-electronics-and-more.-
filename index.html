@@ -10,6 +10,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+.choicebar{background:#fffaf0;border-bottom:1px solid #ead9aa;padding:12px 14px;position:relative;z-index:9}
+.choice-inner{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.language-choice,.role-choice{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:800;color:var(--navy)}
+.lang-btn,.role-btn{border:1px solid #d9e2e9;background:#fff;color:var(--navy);border-radius:25px;padding:9px 13px;font-weight:800;font-size:12px}
+.lang-btn.active,.role-btn.active{background:var(--navy);border-color:var(--navy);color:#ffe08a;box-shadow:0 4px 12px #142b4526}
+.seller-details{background:#f5faf9;border:1px solid #d9eeea;border-radius:14px;padding:12px;margin:12px 0;text-align:left}
+.seller-details h3{margin:4px;color:var(--navy);font-size:15px}
+.seller-details .small{display:block;line-height:1.5}
 :root{--navy:#142b45;--navy2:#203f60;--gold:#efc65c;--teal:#159b91;--cream:#fff9ed;--ink:#172b45;--muted:#64748b;--white:#fff;--line:#e8edf2;--shadow:0 12px 35px rgba(20,43,69,.11)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -69,7 +77,7 @@ footer{margin-top:25px;background:linear-gradient(120deg,#10243a,#214b68);color:
 footer h3{font-family:"Playfair Display",Georgia,serif;color:#f5d77d;font-size:25px;margin:0 0 7px}
 footer p{margin:6px;font-size:13px}
 .footerline{height:1px;background:#ffffff2b;max-width:500px;margin:18px auto}
-@media(max-width:600px){header{padding:20px 12px 25px}.logo{width:55px;height:55px;border-radius:16px}.logo span{font-size:18px}.tagline{letter-spacing:1.5px;font-size:9px}.hero{margin:15px 10px;padding:27px 14px}.searchrow{flex-direction:column}.searchrow .btn{width:100%}nav a{padding:9px 10px;font-size:12px}section{padding:20px 12px}.formbox{padding:19px 14px}.ads{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}.ad{padding:9px}.ad img{height:140px}.ad h3{font-size:15px}.price{font-size:17px!important}}
+@media(max-width:600px){.choice-inner{justify-content:center}.language-choice,.role-choice{justify-content:center;width:100%}.lang-btn,.role-btn{padding:8px 11px}header{padding:20px 12px 25px}.logo{width:55px;height:55px;border-radius:16px}.logo span{font-size:18px}.tagline{letter-spacing:1.5px;font-size:9px}.hero{margin:15px 10px;padding:27px 14px}.searchrow{flex-direction:column}.searchrow .btn{width:100%}nav a{padding:9px 10px;font-size:12px}section{padding:20px 12px}.formbox{padding:19px 14px}.ads{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}.ad{padding:9px}.ad img{height:140px}.ad h3{font-size:15px}.price{font-size:17px!important}}
 </style>
 </head>
 <body>
@@ -84,6 +92,18 @@ footer p{margin:6px;font-size:13px}
   </div>
   <p class="brandurdu">آپ کی قابلِ اعتماد آن لائن مارکیٹ</p>
 </header>
+<div class="choicebar" aria-label="Website options">
+  <div class="choice-inner">
+    <div class="language-choice"><span id="languageLabel">Language / زبان</span>
+      <button class="lang-btn active" id="englishBtn" onclick="setLanguage('en')">English</button>
+      <button class="lang-btn" id="urduBtn" onclick="setLanguage('ur')">اردو</button>
+    </div>
+    <div class="role-choice"><span id="roleLabel">Continue as / منتخب کریں</span>
+      <button class="role-btn active" id="buyerBtn" onclick="setRole('buyer')">🛍️ Buyer</button>
+      <button class="role-btn" id="sellerBtn" onclick="setRole('seller')">🏪 Seller</button>
+    </div>
+  </div>
+</div>
 <nav>
   <a href="#">Home | ہوم</a>
   <a href="#categories">Categories | کیٹیگریز</a>
@@ -139,6 +159,13 @@ footer p{margin:6px;font-size:13px}
     <textarea id="adDescription" rows="4" placeholder="Description / تفصیل"></textarea>
     <input id="adPrice" type="number" min="0" placeholder="Price in PKR">
     <input id="adLocation" placeholder="City / Location">
+    <div class="seller-details">
+      <h3>Seller Details / فروخت کنندہ کی تفصیل</h3>
+      <input id="sellerName" placeholder="Seller full name / فروخت کنندہ کا نام">
+      <input id="sellerMobile" type="tel" inputmode="tel" placeholder="Mobile number / موبائل نمبر">
+      <input id="sellerAddress" placeholder="Full address / مکمل پتہ">
+      <p class="small">Your phone number and address are not displayed on public advertisement cards.</p>
+    </div>
     <label class="small" for="adImage">Upload product photo (optional)</label>
     <input id="adImage" type="file" accept="image/*">
     <button class="btn dark" id="submitAdButton" onclick="postAd()">Submit Advertisement</button>
@@ -167,11 +194,48 @@ footer p{margin:6px;font-size:13px}
 <script>
 "use strict";
 const SUPABASE_URL = "https://lquonluzxuivvzrdiipc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_gwBu5OE9UQe351h24aM75Q_C-W6L1ch";
+const SUPABASE_KEY = "sb_publishable_gwBu5OE9Ue351h24aM75Q_C-W6L1ch";
 let db = null;
 let currentUser = null;
 let allAds = [];
 let allCategories = [];
+let currentRole = "buyer";
+let currentLanguage = "en";
+
+const translations = {
+  en:{language:"Language / زبان",role:"Continue as / منتخب کریں",buyer:"🛍️ Buyer",seller:"🏪 Seller",hero:"Find It. Love It. Buy It.",search:"Search | تلاش کریں",categories:"Explore Categories",ads:"Latest Advertisements",post:"Post Your Advertisement",login:"Login / Sign Up"},
+  ur:{language:"زبان منتخب کریں",role:"اپنا کردار منتخب کریں",buyer:"🛍️ خریدار",seller:"🏪 فروخت کنندہ",hero:"اپنی پسند کی چیز تلاش کریں",search:"تلاش کریں",categories:"کیٹیگریز دیکھیں",ads:"تازہ ترین اشتہارات",post:"اپنا اشتہار دیں",login:"لاگ اِن / اکاؤنٹ بنائیں"}
+};
+function setLanguage(lang){
+  currentLanguage=lang;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==="ur"?"rtl":"ltr";
+  document.getElementById("englishBtn").classList.toggle("active",lang==="en");
+  document.getElementById("urduBtn").classList.toggle("active",lang==="ur");
+  const t=translations[lang];
+  document.getElementById("languageLabel").textContent=t.language;
+  document.getElementById("roleLabel").textContent=t.role;
+  document.getElementById("buyerBtn").textContent=t.buyer;
+  document.getElementById("sellerBtn").textContent=t.seller;
+  document.querySelector(".hero h2").textContent=t.hero;
+  document.querySelector(".searchrow .btn").textContent=t.search;
+  document.querySelector("#categories .section-head h2").textContent=t.categories;
+  document.querySelector("#listings .section-head h2").textContent=t.ads;
+  document.querySelector("#postAd .formbox h2").textContent=t.post;
+  document.querySelector(".hero-actions .btn.teal").textContent=t.login;
+  document.documentElement.style.fontFamily=lang==="ur"?'"Noto Nastaliq Urdu",serif':'"DM Sans",Arial,sans-serif';
+}
+function setRole(role){
+  currentRole=role;
+  document.getElementById("buyerBtn").classList.toggle("active",role==="buyer");
+  document.getElementById("sellerBtn").classList.toggle("active",role==="seller");
+  if(role==="seller"){
+    if(currentUser)openPost();
+    else {showAccount();message("accountMessage","Please login or create an account to continue as a seller.","#b42318");}
+  } else {
+    document.getElementById("listings").scrollIntoView({behavior:"smooth"});
+  }
+}
 
 function message(id, text, color="#172b45"){
   const el=document.getElementById(id);
@@ -202,7 +266,9 @@ async function loadCategories(){
     const name=cat.name||cat.category_name||("Category "+(index+1));
     const item=document.createElement("div");
     item.className="item";
-    item.innerHTML='<span class="cat-icon">'+["🛍️","🏠","🚗","📱","👗","🪑","⚽","🔧"][index%8]+'</span>'+escapeHtml(name);
+    const n=name.toLowerCase();
+    const icon=/car|vehicle|auto|گاڑی/.test(n)?"🚗":/house|home|property|plot|زمین|گھر/.test(n)?"🏠":/mobile|phone|electronic|computer|موبائل/.test(n)?"📱":/cloth|fashion|dress|shoes|کپڑے/.test(n)?"👗":/furniture|فرنیچر/.test(n)?"🪑":/animal|bird|pet|جانور/.test(n)?"🐾":/sport|کھیل/.test(n)?"⚽":/service|خدمات/.test(n)?"🛠️":"🛍️";
+    item.innerHTML='<span class="cat-icon">'+icon+'</span>'+escapeHtml(name);
     item.onclick=()=>filterCategory(cat.id);
     grid.appendChild(item);
     const option=document.createElement("option");
@@ -238,16 +304,12 @@ async function signOut(){
 }
 async function getSellerId(){
   if(!currentUser)throw new Error("Please login first.");
-  const sellerName=currentUser.email;
-  const {data:existing,error:findError}=await db.from("sellers").select("id").eq("seller_name",sellerName).limit(1).maybeSingle();
-  if(findError)throw findError;
-  if(existing)return existing.id;
-  const {data:newSeller,error:insertError}=await db.from("sellers").insert({
-    created_at:new Date().toISOString(),
-    seller_name:sellerName,
-    mobile:"",
-    seller_address:""
-  }).select("id").single();
+  const sellerName=document.getElementById("sellerName").value.trim();
+  const mobile=document.getElementById("sellerMobile").value.trim();
+  const address=document.getElementById("sellerAddress").value.trim();
+  if(!sellerName||!mobile||!address)throw new Error("Please enter seller name, mobile number and full address.");
+  const sellerRecord={created_at:new Date().toISOString(),seller_name:sellerName,mobile:mobile,"seller-address":address};
+  const {data:newSeller,error:insertError}=await db.from("sellers").insert(sellerRecord).select("id").single();
   if(insertError)throw insertError;
   return newSeller.id;
 }
@@ -260,6 +322,7 @@ function openPost(){
 async function postAd(){
   const button=document.getElementById("submitAdButton");
   if(!currentUser){message("postMessage","Please login first.","#b42318");showAccount();return;}
+  if(currentRole!=="seller"){message("postMessage","Please select Seller to post an advertisement.","#b42318");return;}
   const title=document.getElementById("adTitle").value.trim();
   const category=document.getElementById("adCategory").value;
   const description=document.getElementById("adDescription").value.trim();
@@ -289,12 +352,13 @@ async function postAd(){
       price:Number(price),
       locations:locationText,
       image_url:imageUrl,
-      status:"active"
+      status:"active",
+      user_id:currentUser.id
     };
     const {error}=await db.from("listing").insert(newAd);
     if(error)throw error;
     message("postMessage","Your advertisement has been posted successfully!","#12816f");
-    ["adTitle","adDescription","adPrice","adLocation","adImage"].forEach(id=>document.getElementById(id).value="");
+    ["adTitle","adDescription","adPrice","adLocation","adImage","sellerName","sellerMobile","sellerAddress"].forEach(id=>document.getElementById(id).value="");
     document.getElementById("adCategory").value="";
     await loadAds();
   }catch(error){showError("postMessage",error);}
@@ -351,6 +415,8 @@ function showAds(){
 }
 async function start(){
   document.getElementById("year").textContent=new Date().getFullYear();
+  setLanguage("en");
+  document.getElementById("searchBox").addEventListener("keydown",e=>{if(e.key==="Enter")showAds();});
   if(!window.supabase){message("userStatus","Supabase library did not load. Check your internet connection.","#b42318");return;}
   db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   const {data,error}=await db.auth.getSession();
