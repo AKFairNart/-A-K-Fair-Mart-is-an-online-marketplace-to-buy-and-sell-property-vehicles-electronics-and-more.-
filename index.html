@@ -1,4 +1,4 @@
-<!DOCTYPE html>K
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -169,6 +169,12 @@ footer{box-shadow:0 -12px 35px #10243a18}
     <input id="password" type="password" placeholder="Password (at least 6 characters)">
     <button class="btn dark" onclick="signUp()">Create Account</button>
     <button class="btn" onclick="signIn()">Login</button>
+    <button class="btn" onclick="forgotPassword()">Forgot Password? / پاس ورڈ بھول گئے؟</button>
+    <div id="resetPanel" style="display:none;margin-top:12px">
+      <p class="small">Enter your new password after opening the reset link from your email.</p>
+      <input id="newPassword" type="password" minlength="6" placeholder="New password (at least 6 characters)">
+      <button class="btn teal" onclick="saveNewPassword()">Save New Password</button>
+    </div>
     <button class="btn teal" onclick="signOut()">Logout</button>
     <div id="accountMessage" class="notice"></div>
   </div>
@@ -228,7 +234,9 @@ footer{box-shadow:0 -12px 35px #10243a18}
 <script>
 "use strict";
 const SUPABASE_URL = "https://lquonluzxuivvzrdiipc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdW9ubHV6eHVpdnZ6cmRpaXBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyMDEyMjUsImV4cCI6MjEwOTc3NzIyNX0.Ki16VGE07-OkwKWIsRMOHV-qx8yQQ5Q1No1Cu5Px0v0";
+const SUPABASE_KEY = "sb_publishable_gwBu5OE9Ue351h24aM75Q_C-W6L1ch";
+// Add the administrator login email here to enable admin deletion of every listing.
+const ADMIN_EMAILS = [];
 let db = null;
 let currentUser = null;
 let allAds = [];
@@ -329,6 +337,23 @@ async function signIn(){
   if(error){showError("accountMessage",error);return;}
   currentUser=data.user;updateUser();
   message("accountMessage","Login successful.","#12816f");
+}
+async function forgotPassword(){
+  const email=document.getElementById("email").value.trim();
+  if(!email){message("accountMessage","Please enter your account email first.","#b42318");return;}
+  const redirectTo=window.location.origin+window.location.pathname;
+  const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo});
+  if(error){showError("accountMessage",error);return;}
+  message("accountMessage","Password reset link sent. Check your email inbox and spam folder.","#12816f");
+}
+async function saveNewPassword(){
+  const password=document.getElementById("newPassword").value;
+  if(password.length<6){message("accountMessage","New password must be at least 6 characters.","#b42318");return;}
+  const {error}=await db.auth.updateUser({password});
+  if(error){showError("accountMessage",error);return;}
+  document.getElementById("resetPanel").style.display="none";
+  document.getElementById("newPassword").value="";
+  message("accountMessage","Password updated successfully. You can now login with your new password.","#12816f");
 }
 async function signOut(){
   const {error}=await db.auth.signOut();
@@ -431,8 +456,27 @@ function renderAds(ads){
     desc.textContent=ad.description||"";card.appendChild(desc);
     const loc=document.createElement("p");
     loc.className="small";loc.textContent="📍 "+(ad.locations||"Location not specified");card.appendChild(loc);
+    if(currentUser && (ad.user_id===currentUser.id || ADMIN_EMAILS.map(x=>x.toLowerCase()).includes((currentUser.email||"").toLowerCase()))){
+      const del=document.createElement("button");
+      del.type="button";del.className="btn";del.textContent="🗑️ Delete Post / اشتہار حذف کریں";
+      del.style.cssText="margin-top:10px;background:#a83245;color:white;box-shadow:0 5px 0 #792536";
+      del.onclick=()=>deleteAd(ad.id,ad.user_id);
+      card.appendChild(del);
+    }
     grid.appendChild(card);
   });
+}
+async function deleteAd(adId,ownerId){
+  if(!currentUser){message("userStatus","Please login first.","#b42318");return;}
+  const isAdmin=ADMIN_EMAILS.map(x=>x.toLowerCase()).includes((currentUser.email||"").toLowerCase());
+  if(ownerId!==currentUser.id && !isAdmin){alert("You can only delete your own advertisement.");return;}
+  if(!confirm("Delete this advertisement permanently? / کیا آپ یہ اشتہار حذف کرنا چاہتے ہیں؟"))return;
+  let query=db.from("listing").delete().eq("id",adId);
+  if(!isAdmin)query=query.eq("user_id",currentUser.id);
+  const {error}=await query;
+  if(error){alert("Delete failed: "+error.message+". Check listing DELETE RLS policy.");return;}
+  message("postMessage","Advertisement deleted successfully.","#12816f");
+  await loadAds();
 }
 function filterCategory(categoryId){
   const filtered=allAds.filter(ad=>String(ad.caterory_id)===String(categoryId));
@@ -459,7 +503,14 @@ async function start(){
   if(error)console.error(error);
   currentUser=data&&data.session?data.session.user:null;
   updateUser();
-  db.auth.onAuthStateChange((_event,session)=>{currentUser=session?session.user:null;updateUser();});
+  db.auth.onAuthStateChange((event,session)=>{
+    currentUser=session?session.user:null;updateUser();
+    if(event==="PASSWORD_RECOVERY"){
+      document.getElementById("resetPanel").style.display="block";
+      showAccount();
+      message("accountMessage","Enter and save your new password below.","#12816f");
+    }
+  });
   await Promise.all([loadCategories(),loadAds()]);
 }
 start();
