@@ -78,6 +78,40 @@ footer h3{font-family:"Playfair Display",Georgia,serif;color:#f5d77d;font-size:2
 footer p{margin:6px;font-size:13px}
 .footerline{height:1px;background:#ffffff2b;max-width:500px;margin:18px auto}
 @media(max-width:600px){.choice-inner{justify-content:center}.language-choice,.role-choice{justify-content:center;width:100%}.lang-btn,.role-btn{padding:8px 11px}header{padding:20px 12px 25px}.logo{width:55px;height:55px;border-radius:16px}.logo span{font-size:18px}.tagline{letter-spacing:1.5px;font-size:9px}.hero{margin:15px 10px;padding:27px 14px}.searchrow{flex-direction:column}.searchrow .btn{width:100%}nav a{padding:9px 10px;font-size:12px}section{padding:20px 12px}.formbox{padding:19px 14px}.ads{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}.ad{padding:9px}.ad img{height:140px}.ad h3{font-size:15px}.price{font-size:17px!important}}
+
+/* DIGITAL 3D INTERFACE UPGRADE */
+:root{--glow:0 18px 45px rgba(20,43,69,.16);--glass:rgba(255,255,255,.78)}
+body{background:radial-gradient(ellipse at 8% 12%,#fff0c9 0,transparent 27%),radial-gradient(ellipse at 92% 28%,#c8f1eb 0,transparent 30%),linear-gradient(135deg,#f8f7ff 0%,#eaf7f5 48%,#fff8e9 100%);background-attachment:fixed}
+.topbar{background:linear-gradient(90deg,#0c1d30,#1c4662,#087f79);letter-spacing:.65px}
+header{background:radial-gradient(ellipse at 18% 0%,rgba(255,221,124,.25),transparent 34%),radial-gradient(ellipse at 90% 100%,rgba(32,182,168,.24),transparent 36%),linear-gradient(125deg,#091b2e 0%,#173c5b 56%,#087d78 100%);box-shadow:0 16px 40px #10243a35}
+.logo{position:relative;transform:perspective(500px) rotateY(-12deg) rotateX(7deg);box-shadow:inset 2px 2px 5px #fff9, inset -5px -6px 12px #9d702d55,0 12px 0 #9b762f,0 19px 28px #07182777;border-radius:20px}
+.logo:after{content:"";position:absolute;inset:5px;border:1px solid #fff9;border-radius:14px;pointer-events:none}
+.brandname{text-shadow:0 3px 0 #8d6725,0 8px 18px #0006}
+.choicebar{background:rgba(255,250,240,.9);backdrop-filter:blur(16px);box-shadow:0 8px 25px #142b4510}
+.lang-btn,.role-btn{transition:transform .2s,box-shadow .2s}
+.lang-btn:hover,.role-btn:hover{transform:translateY(-2px);box-shadow:0 7px 16px #142b4524}
+.hero{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(235,248,247,.88));border:1px solid #ffffff;box-shadow:0 22px 55px rgba(20,43,69,.13),inset 0 1px 0 #fff;transform:translateZ(0)}
+.hero:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-95px;top:-115px;background:linear-gradient(145deg,#f9dfa0aa,#1db6a522);filter:blur(1px);pointer-events:none}
+.hero h2:first-child{position:relative;text-shadow:0 2px 0 #fff,0 8px 22px #142b4518}
+.btn{box-shadow:0 6px 0 #b58a32,0 12px 22px #b88b2d26,inset 0 1px 0 #fff9;transform:translateY(0);transition:transform .16s,box-shadow .16s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 #b58a32,0 18px 26px #b88b2d30,inset 0 1px 0 #fff9}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b58a32,0 5px 10px #b88b2d22}
+.btn.dark{box-shadow:0 6px 0 #0b1b2c,0 12px 22px #142b4530,inset 0 1px 0 #ffffff25}
+.btn.dark:hover{box-shadow:0 9px 0 #0b1b2c,0 18px 26px #142b4538,inset 0 1px 0 #ffffff25}
+.btn.teal{box-shadow:0 6px 0 #08766f,0 12px 22px #12877f30,inset 0 1px 0 #ffffff35}
+.item{position:relative;overflow:hidden;min-height:116px;background:linear-gradient(145deg,#fff 0%,#f3fbfa 70%,#e5f4f1 100%);border:1px solid #fff;box-shadow:0 7px 0 #dce9e6,0 13px 22px #18365313,inset 0 1px 0 #fff;transform:perspective(700px) rotateX(0deg);transition:transform .22s,box-shadow .22s}
+.item:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#ffffff55,transparent 45%);pointer-events:none}
+.item:hover{transform:perspective(700px) rotateX(5deg) translateY(-5px);box-shadow:0 11px 0 #d5e7e2,0 22px 30px #18365320}
+.item .cat-icon{width:52px;height:52px;margin:0 auto 10px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#fff4ce,#f1d47b);box-shadow:inset 2px 2px 5px #fff, inset -4px -5px 8px #c5a04c55,0 5px 0 #d2b45f,0 9px 14px #142b4519;font-size:27px}
+.formbox{background:linear-gradient(145deg,#fff,#f5fbfa);box-shadow:0 10px 0 #e4eeeb,0 22px 45px #18365317,inset 0 1px 0 #fff}
+.ad{box-shadow:0 8px 0 #e7eeed,0 15px 28px #18365314,inset 0 1px 0 #fff;transition:transform .2s,box-shadow .2s}
+.ad:hover{transform:translateY(-5px) perspective(700px) rotateX(1deg);box-shadow:0 12px 0 #dfeae7,0 24px 35px #18365320}
+.ad img{box-shadow:inset 0 0 0 1px #142b4510}
+input,textarea,select{box-shadow:inset 0 2px 4px #142b4508}
+section{scroll-margin-top:80px}
+footer{box-shadow:0 -12px 35px #10243a18}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -164,7 +198,7 @@ footer p{margin:6px;font-size:13px}
       <input id="sellerName" placeholder="Seller full name / فروخت کنندہ کا نام">
       <input id="sellerMobile" type="tel" inputmode="tel" placeholder="Mobile number / موبائل نمبر">
       <input id="sellerAddress" placeholder="Full address / مکمل پتہ">
-      <p class="small">Your phone number and address are not displayed on public advertisement cards.</p>
+      <p class="small">Your phone number and full address are kept off public advertisement cards. Buyers see the public listing only.</p>
     </div>
     <label class="small" for="adImage">Upload product photo (optional)</label>
     <input id="adImage" type="file" accept="image/*">
@@ -332,6 +366,8 @@ async function postAd(){
   if(!title||!category||!description||!price||!locationText){
     message("postMessage","Please fill in title, category, description, price and location.","#b42318");return;
   }
+  if(file && !file.type.startsWith("image/")){message("postMessage","Please select a valid image file.","#b42318");return;}
+  if(file && file.size>5*1024*1024){message("postMessage","Image must be 5 MB or smaller.","#b42318");return;}
   button.disabled=true;button.textContent="Submitting...";
   try{
     const sellerId=await getSellerId();
@@ -405,7 +441,7 @@ function filterCategory(categoryId){
 }
 function showAds(){
   const term=document.getElementById("searchBox").value.toLowerCase().trim();
-  const filtered=allAds.filter(ad=>
+  const filtered=allAds.filter(ad=>!term||
     (ad.listing_tittle||"").toLowerCase().includes(term)||
     (ad.description||"").toLowerCase().includes(term)||
     (ad.locations||"").toLowerCase().includes(term)
@@ -427,6 +463,47 @@ async function start(){
   await Promise.all([loadCategories(),loadAds()]);
 }
 start();
+
+// Complete bilingual interface layer. Urdu changes labels and direction without changing stored data.
+function setLanguage(lang){
+  currentLanguage=lang==="ur"?"ur":"en";
+  const ur=currentLanguage==="ur";
+  document.documentElement.lang=ur?"ur":"en";
+  document.documentElement.dir=ur?"rtl":"ltr";
+  document.body.classList.toggle("urdu-mode",ur);
+  document.getElementById("englishBtn").classList.toggle("active",!ur);
+  document.getElementById("urduBtn").classList.toggle("active",ur);
+  const text={
+    en:{language:"Language / زبان",role:"Continue as / منتخب کریں",buyer:"🛍️ Buyer",seller:"🏪 Seller",hero:"Find It. Love It. Buy It.",search:"Search | تلاش کریں",categories:"Explore Categories",ads:"Latest Advertisements",post:"Post Your Advertisement",login:"Login / Sign Up",nav:["Home | ہوم","Categories | کیٹیگریز","Ads | اشتہارات","Account | اکاؤنٹ"],welcome:"Welcome to A&K Fair Mart",loginHint:"Login or create your account using your email address.",create:"Create Account",loginBtn:"Login",logout:"Logout",postHint:"Share the details of the item you want to sell.",sellerTitle:"Seller Details / فروخت کنندہ کی تفصیل",submit:"Submit Advertisement",catHint:"اپنی پسند کی کیٹیگری منتخب کریں",latestUr:"تازہ ترین اشتہارات",titlePh:"Ad title / اشتہار کا عنوان",descPh:"Description / تفصیل",pricePh:"Price in PKR",locationPh:"City / Location",namePh:"Seller full name / فروخت کنندہ کا نام",mobilePh:"Mobile number / موبائل نمبر",addressPh:"Full address / مکمل پتہ",searchPh:"Search products, cars, property... / تلاش کریں"},
+    ur:{language:"زبان منتخب کریں",role:"اپنا کردار منتخب کریں",buyer:"🛍️ خریدار",seller:"🏪 فروخت کنندہ",hero:"اپنی پسند کی چیز تلاش کریں",search:"تلاش کریں",categories:"کیٹیگریز دیکھیں",ads:"تازہ ترین اشتہارات",post:"اپنا اشتہار دیں",login:"لاگ اِن / اکاؤنٹ بنائیں",nav:["ہوم","کیٹیگریز","اشتہارات","اکاؤنٹ"],welcome:"A&K فیئر مارٹ میں خوش آمدید",loginHint:"ای میل کے ذریعے لاگ اِن کریں یا نیا اکاؤنٹ بنائیں۔",create:"اکاؤنٹ بنائیں",loginBtn:"لاگ اِن",logout:"لاگ آؤٹ",postHint:"فروخت کے لیے اپنی چیز کی تفصیلات درج کریں۔",sellerTitle:"فروخت کنندہ کی تفصیل",submit:"اشتہار جمع کروائیں",catHint:"اپنی پسند کی کیٹیگری منتخب کریں",latestUr:"تازہ ترین اشتہارات",titlePh:"اشتہار کا عنوان",descPh:"تفصیل",pricePh:"قیمت پاکستانی روپے میں",locationPh:"شہر / مقام",namePh:"فروخت کنندہ کا پورا نام",mobilePh:"موبائل نمبر",addressPh:"مکمل پتہ",searchPh:"اشیاء، گاڑیاں یا پراپرٹی تلاش کریں"}
+  }[currentLanguage];
+  document.getElementById("languageLabel").textContent=text.language;
+  document.getElementById("roleLabel").textContent=text.role;
+  document.getElementById("buyerBtn").textContent=text.buyer;
+  document.getElementById("sellerBtn").textContent=text.seller;
+  document.querySelector(".hero h2").textContent=text.hero;
+  document.querySelector(".searchrow .btn").textContent=text.search;
+  document.querySelector("#categories .section-head h2").textContent=text.categories;
+  document.querySelector("#listings .section-head h2").textContent=text.ads;
+  document.querySelector("#postAd .formbox h2").textContent=text.post;
+  document.querySelector(".hero-actions .btn.teal").textContent=text.login;
+  document.querySelector(".hero-actions .btn:not(.teal)").textContent=ur?"＋ اپنا اشتہار دیں":"＋ Post Your Ad | اشتہار دیں";
+  document.querySelector("#account .formbox h2").textContent=text.welcome;
+  document.querySelector("#account .hint").textContent=text.loginHint;
+  const accountButtons=document.querySelectorAll("#account .formbox button");
+  accountButtons[0].textContent=text.create;accountButtons[1].textContent=text.loginBtn;accountButtons[2].textContent=text.logout;
+  document.querySelector("#postAd .hint").textContent=text.postHint;
+  document.querySelector(".seller-details h3").textContent=text.sellerTitle;
+  document.getElementById("submitAdButton").textContent=text.submit;
+  const nav=document.querySelectorAll("nav a");nav.forEach((a,i)=>{if(text.nav[i])a.textContent=text.nav[i];});
+  const placeholders={searchBox:text.searchPh,adTitle:text.titlePh,adDescription:text.descPh,adPrice:text.pricePh,adLocation:text.locationPh,sellerName:text.namePh,sellerMobile:text.mobilePh,sellerAddress:text.addressPh};
+  Object.entries(placeholders).forEach(([id,value])=>document.getElementById(id).placeholder=value);
+  document.querySelector("#categories .section-head p").textContent=text.catHint;
+  document.querySelector("#listings .section-head p").textContent=text.latestUr;
+  document.querySelectorAll("#account input,#postAd input,#postAd textarea,#postAd select").forEach(el=>el.dir=ur?"rtl":"ltr");
+  document.querySelectorAll(".urdu,.brandurdu").forEach(el=>el.dir="rtl");
+}
+
 </script>
 </body>
 </html> 
